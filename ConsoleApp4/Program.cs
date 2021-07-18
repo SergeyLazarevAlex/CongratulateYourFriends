@@ -11,14 +11,14 @@ namespace ConsoleApp4
             string[] Names = {"Сергей", "Сява","Тоха","Андрей","Рома"};
             string[] Surnames = {"Лазарев","Богров","Бородатый","Белов","Еремеев"};
             string[] Patronymics = {"Александрович", "Сявкин", "Чёрт", "Синяк", "Бендерович"};
-            DateTime[] dateTimes = {new DateTime(1990, 12, 06), new DateTime(1991, 11, 06), new DateTime(1989, 07, 20), new DateTime(1990, 08, 01), new DateTime(1995, 07, 18)};
+            DateTime[] dateTimes = {new DateTime(1990, 12, 06), new DateTime(1991, 11, 06), new DateTime(1989, 07, 20), new DateTime(1990, 08, 01), new DateTime(1995, 07, 19)};
             MyBase[] frends = new MyBase[5];
             for (int i = 0; i < frends.Length; i++)            
                 frends[i] = new MyBase(Names[i],Surnames[i],Patronymics[i],dateTimes[i]);
             return frends;
         }
 
-        // создание друга
+        // Создание друга
         static MyBase CreateFrend()
         {
             Console.Write("Введите имя: ");
@@ -34,7 +34,7 @@ namespace ConsoleApp4
             return frend;
         }
 
-        //добавление друга
+        // Добавление друга
         static void AddFrend(ref MyBase[] friends, MyBase myFrend)
         {
             MyBase[] newfrends = new MyBase[friends.Length + 1];
@@ -44,7 +44,7 @@ namespace ConsoleApp4
             friends = newfrends;
         }
 
-        //удаление друга
+        // Удаление друга
         static void DeleteFrend(ref MyBase[] friends)
         {
             Console.Write("\nВведите порядковый номер друга для удаления: ");
@@ -66,7 +66,7 @@ namespace ConsoleApp4
             friends = newFrends;
         }
 
-        //корректируем друга
+        // Корректируем друга
         static void FixFrend(ref MyBase[] friends)
         {
             Console.Write("\nВведите порядковый номер друга которого нужно исправить: ");
@@ -75,13 +75,14 @@ namespace ConsoleApp4
             friends[indexfr] = CreateFrend();
         }
 
+        // Вывод всего на экран
         static void PrintAllInfo(MyBase[] friends)
         {
             Console.WriteLine("Днюхи:");
             for (int i = 0; i < friends.Length; i++)
             {
                 Console.Write(i+1+") ");
-                MyBase.PrintFriend(friends[i]);
+                MyBase.PrintFriend(friends[i], MyBase.FriendsMaxString(friends));
             }
             MyBase.PrintTodeyBirthdays(friends);
             MyBase.UpcomingBirthdays(friends);

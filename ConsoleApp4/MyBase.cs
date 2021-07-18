@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp4
 {
@@ -13,7 +9,7 @@ namespace ConsoleApp4
         private string Patronymic;
         private DateTime date;
 
-        //конструктор класса
+        // Конструктор класса
         public MyBase(string Name, string Surname, string Patronymic, DateTime date)
         {
             this.Name = Name;
@@ -22,24 +18,39 @@ namespace ConsoleApp4
             this.date = date;
         }
 
-        // Вывод на экран друга
-        public static void PrintFriend(MyBase friend)
+        // Находим самую длинную строку
+        public static int FriendsMaxString(MyBase[] friends)
         {
-            Console.WriteLine($"ФИО: {friend.Name} {friend.Surname} {friend.Patronymic} . Дата рождения: {friend.date.ToString("d")}");
+            int indexLenght = 0;
+            string myfriends;
+            for (int i = 0; i < friends.Length; i++)
+            {
+                myfriends = String.Concat(friends[i].Name, " ", friends[i].Surname, " ", friends[i].Patronymic);
+                if (myfriends.Length > indexLenght)
+                    indexLenght = myfriends.Length;
+            }
+            return indexLenght;
         }
 
-        //Выводит дни рождения к текущей дате
+        // Вывод на экран друга
+        public static void PrintFriend(MyBase friend, int indexLenght)
+        {
+            string myfriend = String.Concat(friend.Name, " ", friend.Surname, " ", friend.Patronymic).PadRight(indexLenght);
+            Console.WriteLine($"ФИО: {myfriend} | Дата рождения: {friend.date.ToString("d")}");
+        }
+
+        // Выводит дни рождения к текущей дате
         public static void PrintTodeyBirthdays(MyBase[] friends)
         {
             Console.WriteLine("\nСегодня день рождение: ");
             for (int i = 0; i < friends.Length; i++)
             {
                 if (friends[i].date.Day == DateTime.Today.Day && friends[i].date.Month == DateTime.Today.Month)
-                    PrintFriend(friends[i]);
+                    PrintFriend(friends[i], FriendsMaxString(friends)+3);
             }
         }
 
-        //Выводит ближайшие дни рождения
+        // Выводит ближайшие дни рождения
         public static void UpcomingBirthdays(MyBase[] friends)
         {
             DateTime ThisDate = DateTime.Today.AddDays(20);
@@ -48,7 +59,7 @@ namespace ConsoleApp4
             {
                 if ((friends[i].date.Day > DateTime.Today.Day && friends[i].date.Month < ThisDate.Month) ||
                 (friends[i].date.Day <= ThisDate.Day && friends[i].date.Month == ThisDate.Month))
-                    PrintFriend(friends[i]);
+                    PrintFriend(friends[i], FriendsMaxString(friends)+3);
             }
         }
     }
