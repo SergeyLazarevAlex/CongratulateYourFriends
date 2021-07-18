@@ -23,25 +23,33 @@ namespace ConsoleApp4
         }
 
         // Вывод на экран друга
-        public static void Print(MyBase frend)
+        public static void PrintFriend(MyBase friend)
         {
-            Console.WriteLine($"ФИО: {frend.Name} {frend.Surname} {frend.Patronymic} . Дата рождения: {frend.date.ToString("d")}");
+            Console.WriteLine($"ФИО: {friend.Name} {friend.Surname} {friend.Patronymic} . Дата рождения: {friend.date.ToString("d")}");
         }
 
-        //Находит дни рождения к текущей дате
-        public static void ToDeyBirthdays(MyBase frend)
+        //Выводит дни рождения к текущей дате
+        public static void PrintTodeyBirthdays(MyBase[] friends)
         {
-            if (frend.date.Day == DateTime.Today.Day && frend.date.Month == DateTime.Today.Month)
-                Print(frend);
+            Console.WriteLine("\nСегодня день рождение: ");
+            for (int i = 0; i < friends.Length; i++)
+            {
+                if (friends[i].date.Day == DateTime.Today.Day && friends[i].date.Month == DateTime.Today.Month)
+                    PrintFriend(friends[i]);
+            }
         }
 
-        //Находит ближайшие дни рождения
-        public static void UpcomingBirthdays(MyBase frend)
+        //Выводит ближайшие дни рождения
+        public static void UpcomingBirthdays(MyBase[] friends)
         {
             DateTime ThisDate = DateTime.Today.AddDays(20);
-            if ((frend.date.Day > DateTime.Today.Day && frend.date.Month < ThisDate.Month) ||
-                (frend.date.Day <= ThisDate.Day && frend.date.Month == ThisDate.Month))
-                Print(frend);
+            Console.WriteLine("\nБлижайшие дни рождения (20 дней): ");
+            for (int i = 0; i < friends.Length; i++)
+            {
+                if ((friends[i].date.Day > DateTime.Today.Day && friends[i].date.Month < ThisDate.Month) ||
+                (friends[i].date.Day <= ThisDate.Day && friends[i].date.Month == ThisDate.Month))
+                    PrintFriend(friends[i]);
+            }
         }
     }
 }
